@@ -1,17 +1,17 @@
-<?php
-require_once( "../includes/database.php");
+<?php require_once("../includes/initialize.php"); ?>
 
-if( isset($db) ) { echo "true"; } else { echo "false"; }
-echo "<br/>";
+<?php include_layout_template('header.php'); ?>
+<?
+$user = User::find_by_id(1);
+echo $user->full_name();
 
-echo $db->escape_value( "It's working?<br/>");
+echo "<hr />";
 
-//$sql = "INSERT INTO users (id, username, password, first_name, last_name) ";
-//$sql .= "VALUES (1, 'kskoglund', 'secretpwd', 'Kevin', 'Skoglund')";
-//fetch_array$result = $db->query($sql);
+$users = User::find_all();
+foreach($users as $user) {
+  echo "User: ". $user->username ."<br />";
+  echo "Name: ". $user->full_name() ."<br /><br />";
+}
 
-$sql = "SELECT * FROM users WHERE id = 1";
-$result_set = $database->query( $sql );
-$found_user = $database->fetch_array( $result_set );
-echo $found_user['username'];
 ?>
+<?php include_layout_template('footer.php'); ?>
